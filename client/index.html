@@ -6,7 +6,7 @@
     <title>WebSocket Chat Demo</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-body: #f3f4f6;
@@ -39,6 +39,22 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            font-size: clamp(4rem, 10vw, 10rem);
+            font-weight: 800;
+            color: rgba(99, 102, 241, 0.04);
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 0;
+            user-select: none;
         }
 
         .chat-container {
@@ -51,6 +67,7 @@
             flex-direction: column;
             height: 85vh;
             overflow: hidden;
+            z-index: 1;
         }
 
         .header {
@@ -64,12 +81,25 @@
             gap: 15px;
         }
 
+        .header-title {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
         .header h1 {
             font-size: 1.4rem;
             font-weight: 600;
             color: var(--text-main);
             display: flex;
             align-items: center;
+        }
+
+        .university-name {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            letter-spacing: 0.5px;
         }
 
         .connection-panel {
@@ -311,9 +341,14 @@
     </style>
 </head>
 <body>
+    <div class="watermark">Oscar Ger</div>
+
     <div class="chat-container">
         <div class="header">
-            <h1><span class="status-dot" id="status-indicator"></span> WebSocket Chat</h1>
+            <div class="header-title">
+                <h1><span class="status-dot" id="status-indicator"></span> WebSocket Chat</h1>
+                <div class="university-name">Universidad Politécnica Estatal del Carchi</div>
+            </div>
             <div class="connection-panel">
                 <input type="text" id="server-url" class="input-styled" value="ws://localhost:8080" placeholder="ws://...">
                 <button id="btn-connect" class="btn">Conectar</button>
